@@ -29,4 +29,5 @@ All examples were tested in Delphi 10.2 Tokyo Starter (**32-bit**). *Microsoft V
    ![delphi-vcl-video](examples/delphi-vcl-video/delphi-vcl-video.png)  
    
 ## License
-MIT
+TOpenAlpr is licensed under the MIT license.
+For OpenALPR binaries and usage, follow the [original license](https://github.com/openalpr/openalpr#license).
