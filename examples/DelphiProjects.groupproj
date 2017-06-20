@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{77BC9CAC-42E6-4D86-A96E-38B0E8C42B18}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="delphi-vcl-image\delphi_vcl_image.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="delphi-vcl-video\delphi_vcl_video.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="delphi-console\delphi_console.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="delphi_vcl_image">
+        <MSBuild Projects="delphi-vcl-image\delphi_vcl_image.dproj"/>
+    </Target>
+    <Target Name="delphi_vcl_image:Clean">
+        <MSBuild Projects="delphi-vcl-image\delphi_vcl_image.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="delphi_vcl_image:Make">
+        <MSBuild Projects="delphi-vcl-image\delphi_vcl_image.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="delphi_vcl_video">
+        <MSBuild Projects="delphi-vcl-video\delphi_vcl_video.dproj"/>
+    </Target>
+    <Target Name="delphi_vcl_video:Clean">
+        <MSBuild Projects="delphi-vcl-video\delphi_vcl_video.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="delphi_vcl_video:Make">
+        <MSBuild Projects="delphi-vcl-video\delphi_vcl_video.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="delphi_console">
+        <MSBuild Projects="delphi-console\delphi_console.dproj"/>
+    </Target>
+    <Target Name="delphi_console:Clean">
+        <MSBuild Projects="delphi-console\delphi_console.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="delphi_console:Make">
+        <MSBuild Projects="delphi-console\delphi_console.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="delphi_vcl_image;delphi_vcl_video;delphi_console"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="delphi_vcl_image:Clean;delphi_vcl_video:Clean;delphi_console:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="delphi_vcl_image:Make;delphi_vcl_video:Make;delphi_console:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
