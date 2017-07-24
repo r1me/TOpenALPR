@@ -1,4 +1,6 @@
 # TOpenALPR
+[![Click here to lend your support to r1me and make a donation at pledgie.com !](https://pledgie.com/campaigns/34292.png)](https://pledgie.com/campaigns/34292)
+
 TOpenALPR is a Delphi binding for [OpenALPR](https://github.com/openalpr/openalpr) - Automatic License Plate Recognition library.
 
 ## Building examples
@@ -14,7 +16,7 @@ All examples were tested in Delphi 10.2 Tokyo Starter (**32-bit**). *Microsoft V
    - `openalpr_32` directory can now be deleted
 2. Download and unpack [openalpr-master.zip](http://r1me.pl/openalpr-master.zip). Copy `openalpr.dll` to `bin\openalpr.dll`
 3. Open and compile example project: 
-   - `examples\delphi-console`. Detect plates in image file `samples\eu-1.jpg` and write to console output, similar to `alpr.exe` that is distributed with OpenALPR.
+   - `examples\delphi-console`. Detect plates in image file `samples\eu-3.jpg` and write to console output, similar to `alpr.exe` that is distributed with OpenALPR.
    ![delphi-console](examples/delphi-console/delphi-console.png)
    
    - `examples\delphi-vcl-image`. Detect plates in JPG, PNG, BMP and GIF images.  
