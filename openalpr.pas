@@ -3,7 +3,7 @@ unit openalpr;
 { The MIT License (MIT) 
  
  TOpenALPR 
- Copyright (c) 2017 Damian Woroch, http:r1me.pl 
+ Copyright (c) 2017 Damian Woroch, http://r1me.pl 
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
