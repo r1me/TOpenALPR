@@ -133,7 +133,7 @@ type
     openalpr_free_response_string: Tfnopenalpr_free_response_string;
     openalpr_cleanup: Tfnopenalpr_cleanup;
     function JSONBufferToString(pJSON: PUTF8Char): String;
-    function BitmapToMemoryBuffer(const ABitmap: Vcl.Graphics.TBitmap; out ABytesPerPixel: Integer): TMemoryStream;
+    function BitmapToPixelData(const ABitmap: Vcl.Graphics.TBitmap; out ABytesPerPixel: Integer): TMemoryStream;
     function PROIToROI(AROI: PAlprCRegionOfInterest; AX, AY, AWidth, AHeight: Integer): TAlprCRegionOfInterest;
   public
     // Initializes OpenALPR library
@@ -173,7 +173,8 @@ var
 
 implementation
 uses
-  System.JSON;
+  System.JSON,
+  Vcl.Imaging.Jpeg;
 
 { TAlprCRegionOfInterest }
 
@@ -355,7 +356,7 @@ var
 begin
   if Assigned(FOpenALPRInstance) then
   begin
-    msBitmap := BitmapToMemoryBuffer(ABitmap, bytesPerPixel);
+    msBitmap := BitmapToPixelData(ABitmap, bytesPerPixel);
     try
       if (msBitmap.Size = 0) then Exit;
       msBitmap.Position := 0;
@@ -384,7 +385,7 @@ begin
       bmpMask := TBitmap.Create;
       try
         bmpMask.Assign(picMask.Graphic);
-        msBitmap := BitmapToMemoryBuffer(bmpMask, bytesPerPixel);
+        msBitmap := BitmapToPixelData(bmpMask, bytesPerPixel);
         try
           if (msBitmap.Size = 0) then Exit;
           msBitmap.Position := 0;
@@ -432,22 +433,27 @@ function TOpenALPR.RecognizeBitmap(const ABitmap: Vcl.Graphics.TBitmap; AROI: PA
 var
   pJSON: PUTF8Char;
   msBitmap: TMemoryStream;
-  bytesPerPixel: Integer;
   roi: TAlprCRegionOfInterest;
+  jpg: TJPEGImage;
 begin
   Result := TOpenALPRResult.Create;
 
   if Assigned(FOpenALPRInstance) then
   begin
-    msBitmap := BitmapToMemoryBuffer(ABitmap, bytesPerPixel);
+    jpg := TJPEGImage.Create;
     try
-      if (msBitmap.Size = 0) then Exit;
-      roi := PROIToROI(AROI, 0, 0, ABitmap.width, ABitmap.height);
-      pJSON := openalpr_recognize_rawimage(FOpenALPRInstance, msBitmap.Memory,
-        bytesPerPixel, ABitmap.width, ABitmap.height, roi);
-      Result.ParseJSON(JSONBufferToString(pJSON));
+      msBitmap := TMemoryStream.Create;
+      try
+        jpg.Assign(ABitmap);
+        jpg.SaveToStream(msBitmap);
+        roi := PROIToROI(AROI, 0, 0, ABitmap.Width, ABitmap.Height);
+        pJSON := openalpr_recognize_encodedimage(FOpenALPRInstance, msBitmap.Memory, msBitmap.Size, roi);
+        Result.ParseJSON(JSONBufferToString(pJSON));
+      finally
+        msBitmap.Free;
+      end;
     finally
-      msBitmap.Free;
+      jpg.Free;
     end;
   end;
 end;
@@ -481,7 +487,7 @@ begin
   end;
 end;
 
-function TOpenALPR.BitmapToMemoryBuffer(const ABitmap: Vcl.Graphics.TBitmap;
+function TOpenALPR.BitmapToPixelData(const ABitmap: Vcl.Graphics.TBitmap;
   out ABytesPerPixel: Integer): TMemoryStream;
 var
   msBitmap: TMemoryStream;
