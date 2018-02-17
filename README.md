@@ -1,5 +1,5 @@
 # TOpenALPR
-[![Click here to lend your support to r1me and make a donation at pledgie.com !](https://pledgie.com/campaigns/34292.png)](https://pledgie.com/campaigns/34292)
+[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SSCM9JJLXA8UC)
 
 TOpenALPR is a Delphi binding for [OpenALPR](https://github.com/openalpr/openalpr) - Automatic License Plate Recognition library.
 
