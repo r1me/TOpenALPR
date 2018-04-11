@@ -14,7 +14,7 @@ All examples were tested in Delphi 10.2 Tokyo Starter (**32-bit**). *Microsoft V
    - `openalpr_32\opencv_ffmpeg300.dll` to `bin\opencv_ffmpeg300.dll`
    - `openalpr_32\opencv_world300.dll` to `bin\opencv_world300.dll`
    - `openalpr_32` directory can now be deleted
-2. Download and unpack [openalpr-master.zip](http://r1me.pl/openalpr-master.zip). Copy `openalpr.dll` to `bin\openalpr.dll`
+2. Unpack lib\openalpr-master.zip. Copy `openalpr.dll` to `bin\openalpr.dll`
 3. Open and compile example project: 
    - `examples\delphi-console`. Detect plates in image file `samples\eu-3.jpg` and write to console output, similar to `alpr.exe` that is distributed with OpenALPR.
    ![delphi-console](examples/delphi-console/delphi-console.png)
